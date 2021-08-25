@@ -3396,12 +3396,12 @@ Page Title Area Style
 /*
 FAQ Area CSS
 ======================================================*/
-.faq-area.faq-page-style .faq-accordion .accordion .accordion-title {
+.faq-area.faq-page-style .faq-accordion .accordion .accordion-title .address-accordion{
   background-color: #ffffff;
   border: 1px solid #ebebeb;
 }
 
-.faq-area.faq-page-style .faq-accordion .accordion .accordion-content {
+.faq-area.faq-page-style .faq-accordion .accordion .accordion-content .address-accordion {
   background-color: #f5f2f2;
 }
 

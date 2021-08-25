@@ -4,7 +4,7 @@ import (
 	"3TrashGuitarists/models"
 	"3TrashGuitarists/utils"
 	"fmt"
-	"github.com/astaxie/beego"
+	// "github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 )
 
@@ -14,14 +14,14 @@ type MyInformationController struct {
 }
 
 func (c *MyInformationController) Get() {
-	user_name := c.GetSession("user_name")
-	fmt.Println("user_name---->", user_name)
-	if user_name != nil {
-		c.IsLogin = true
-		c.user_name = user_name
-	} else {
-		c.IsLogin = false
-	}
+	// user_name := c.GetSession("user_name")
+	// fmt.Println("user_name---->", user_name)
+	// if user_name != nil {
+	// 	c.IsLogin = true
+	// 	c.user_name = user_name
+	// } else {
+	// 	c.IsLogin = false
+	// }
 
 
 	if c.GetSession("user_name") !=nil{
@@ -43,8 +43,10 @@ func (c *MyInformationController) Get() {
 		}
 
 	}else{
-		c.Redirect(beego.URLFor("/sign_in"),302)
+		//c.Redirect(beego.URLFor("/about_us"),302)
+			c.Redirect("/sign_in",302)
 	}
+	c.IsLogin = false
 	c.TplName = "My_Information.html"
 
 }
@@ -150,4 +152,3 @@ func (c *MyInformationController) ChangeAddress3() {
 	c.Data["json"] = ReturnData
 	c.ServeJSON()
 }
-

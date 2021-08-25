@@ -92,27 +92,31 @@
           <form id="sign-up" method="post" class="email-form">
 
             <div class="col-md-8 form-group">
-              <input type="text" name="username" class="form-control" id="username" placeholder="User Name: 4~16 characters"/>
-              <h4 class="return-message" id = "check_username_dup"></h4>
-              <h4 class="return-message" id = "check_username_format"></h4>
+              <input type="text" name="username" class="form-control" id="username" onblur="alertusername()" onblur="this.value=this.value.replace(/\s+/g,'')" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="User Name: 4~16 characters"/>
+              <h4 class="return-message" id="alertusername"></h4>
+              <h4 class="return-message" id="check_username_dup"></h4>
+              <!-- <h4 class="return-message" id = "check_username_format"></h4> -->
 
             </div>
             <div class="col-md-8 form-group">
-              <input type="text" class="form-control" name="password" id="password" placeholder="Password: 6~16 with at least 1 character"/>
-              <h4 class="return-message" id = "check_password"></h4>
+              <input type="text" class="form-control" name="password" id="password" onblur="alertpassword()" onblur="this.value=this.value.replace(/\s+/g,'')" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="Password: 6~16 with at least 1 character"/>
+              <h4 class="return-message" id="alertpassword"></h4>
+              <!-- <h4 class="return-message" id = "check_password"></h4> -->
             </div>
             <div class="col-md-8 form-group">
-              <input type="text" class="form-control" name="repassword" id="repassword" placeholder="Re-enter your password again"/>
-              <h4 class="return-message" id="check_repassword"></h4>
+              <input type="text" class="form-control" name="repassword" id="repassword" onblur="alertrepassword()" onblur="this.value=this.value.replace(/\s+/g,'')" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="Re-enter your password again"/>
+              <h4 class="return-message" id="alertrepassword"></h4>
+              <!-- <h4 class="return-message" id="check_repassword"></h4> -->
             </div>
             <div class="col-md-8 form-group">
-              <input type="text" class="form-control" name="email" id="email" placeholder="E-mail"/>
-              <h4 class="return-message" id="check_email"></h4>
+              <input type="text" class="form-control" name="email" id="email" onblur="alertemail()" placeholder="E-mail"/>
+              <h4 class="return-message" id="alertemail"></h4>
+              <!-- <h4 class="return-message" id="check_email"></h4> -->
               <h4 class="return-message" id="check_email_dup"></h4>
             </div>
             <div class="col-md-8 form-group">
               <input type="text" class="form-control" name="address1" id="address1" placeholder="Your address"/>
-              <h4 class="return-message" id="check_address1"></h4>
+              <!-- <h4 class="return-message" id="check_address1"></h4> -->
             </div>
 
 
@@ -146,60 +150,142 @@
 
 <script src="/static/vendor/jquery/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
+  // var validusername = false;
+  // var validpassword = false;
+  // var validrepassword = false;
+  // var validemail= false;
+  var messageusername = "Your username should be 4~16 characters";
+  var messagepassword = "Your password should be 6~16 characters with at least 1 letter and at least 1 number";
+  var messagerepassword = "Two passwords should be the same"
+  var messageemail = "Your E-mail address is not valid";
+  function alertusername() {
+    var value = document.getElementById("username").value;
+    var regex = /[a-zA-Z0-9]{4,16}$/; //正则表达式长度4-16且全部是数字或者字母
+    if (regex.test(value) == false){
+      document.getElementById("alertusername").innerHTML = messageusername;
+    }
+    else
+      document.getElementById("alertusername").innerHTML = "";
+      validusername = true;
+  }
+  function alertpassword() {
+    var value = document.getElementById("password").value;
+    var regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,16}$/; //正则表达式长度6-16且至少有一个字母和至少一个数字
+    if (regex.test(value) == false){
+      document.getElementById("alertpassword").innerHTML = messagepassword;
+    }
+    else
+      document.getElementById("alertpassword").innerHTML = "";
+      validpassword = true;
+  }
+  function alertrepassword() {
+    var password = document.getElementById("password").value;
+    var repassword = document.getElementById("repassword").value;
+    if (password != repassword){
+      document.getElementById("alertrepassword").innerHTML = messagerepassword;
+    }
+    else
+      document.getElementById("alertrepassword").innerHTML = "";
+      validrepassword = true;
+  }
+  function alertemail() {
+    var value = document.getElementById("email").value;
+    var regex = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/; //正则表达式为邮箱
+    if (regex.test(value) == false){
+      document.getElementById("alertemail").innerHTML = messageemail;
+    }
+    else
+      document.getElementById("alertemail").innerHTML = "";
+      validemail = true;
+  }
+
   $('#button-sign-up').click(function(){
-    $("#check_username_dup")[0].innerHTML = "";
-    $("#check_username_format")[0].innerHTML = "";
-    $("#check_password")[0].innerHTML = "";
-    $("#check_repassword")[0].innerHTML = "";
-    $("#check_email")[0].innerHTML = "";
-    $("#check_address1")[0].innerHTML = "";
-    $.ajax({
-      type: "post",
-      url: "{{urlfor "RegisterController.Post"}}",
-      data:$("#sign-up").serialize(),
-      dataType: 'json',
-      success: function(returndata){
-        if(returndata.status ==-1) {
-          alert(returndata.message);
-          location.href = "{{urlfor "RegisterController.Get"}}";
-        }
-        if(returndata.status ==1){
-          alert(returndata.message);
-          location.href = "{{urlfor "HomeController.Get"}}";
-        }
-        else{
+    if (validusername == true && validpassword == true && validrepassword == true && validemail == true){
+      $.ajax({
+        type: "post",
+        url: "{{urlfor "RegisterController.Post"}}",
+        data:$("#sign-up").serialize(),
+        dataType: 'json',
+        success: function(returndata){
           console.log(returndata);
-          console.log({{.check_username_dup}})
-          if(returndata.check_username_dup == true){
-            $("#check_username_dup")[0].innerHTML = "This name is already used.";
+          if (returndata.status == 0) {
+            if(returndata.check_username_dup == true){
+            $("#check_username_dup")[0].innerHTML = "This name is already exists.";
+            }
+            if(returndata.check_email_dup == true){
+            $("#check_email_dup")[0].innerHTML = "This E_mail address is already exists.";
+            }
           }
-          if(returndata.check_username_format == true){
-            $("#check_username_format")[0].innerHTML = "Your name should be a word in 4~16 characters.";
+          else if (returndata.status == -1) {
+            alert(returndata.message);
+            location.href = "{{urlfor "RegisterController.Get"}}";
           }
-          if(returndata.check_password == true){
-            $("#check_password")[0].innerHTML = "Password should be 6~16 with at least 1 character.";
-          }
-          if(returndata.check_repassword == true){
-            $("#check_repassword")[0].innerHTML = "2 passwords should be the same.";
-          }
-          if(returndata.check_email == true){
-            $("#check_email")[0].innerHTML = "Please write a valid email address.";
-          }
-          if(returndata.check_email_dup == true){
-            $("#check_email")[0].innerHTML = "This email is already used.";
-          }
-          if(returndata.check_address1 == true){
-            $("#check_address1")[0].innerHTML = "1 address is required.";
+          else if(returndata.status ==1){
+            alert(returndata.message);
+            location.href = "{{urlfor "HomeController.Get"}}";
           }
         }
-      },
-      error: function () {
+        // error: function () {
+        //   alert('Something wrong happened. Please try again later.');
+        // }
+      })
+    }
+  })
 
-        alert('Please try later.');
-      }
-
-    });
-  });
+  // $('#button-sign-up').click(function(){
+  //   $("#check_username_dup")[0].innerHTML = "";
+  //   $("#check_username_format")[0].innerHTML = "";
+  //   $("#check_password")[0].innerHTML = "";
+  //   $("#check_repassword")[0].innerHTML = "";
+  //   $("#check_email")[0].innerHTML = "";
+  //   $("#check_address1")[0].innerHTML = "";
+  //   $.ajax({
+  //     type: "post",
+  //     url: "{{urlfor "RegisterController.Post"}}",
+  //     data:$("#sign-up").serialize(),
+  //     dataType: 'json',
+  //     success: function(returndata){
+  //       if(returndata.status == -1) {
+  //         alert(returndata.message);
+  //         location.href = "{{urlfor "RegisterController.Get"}}";
+  //       }
+  //       if(returndata.status ==1){
+  //         alert(returndata.message);
+  //         location.href = "{{urlfor "HomeController.Get"}}";
+  //       }
+  //       else{
+  //         console.log(returndata);
+  //         console.log({{.check_username_dup}})
+  //         if(returndata.check_username_dup == true){
+  //           $("#check_username_dup")[0].innerHTML = "This name is already used.";
+  //         }
+  //         if(returndata.check_username_format == true){
+  //           $("#check_username_format")[0].innerHTML = "Your name should be a word in 4~16 characters.";
+  //         }
+  //         if(returndata.check_password == true){
+  //           $("#check_password")[0].innerHTML = "Password should be 6~16 with at least 1 character.";
+  //         }
+  //         if(returndata.check_repassword == true){
+  //           $("#check_repassword")[0].innerHTML = "2 passwords should be the same.";
+  //         }
+  //         if(returndata.check_email == true){
+  //           $("#check_email")[0].innerHTML = "Please write a valid email address.";
+  //         }
+  //         if(returndata.check_email_dup == true){
+  //           $("#check_email")[0].innerHTML = "This email is already used.";
+  //         }
+  //         if(returndata.check_address1 == true){
+  //           $("#check_address1")[0].innerHTML = "1 address is required.";
+  //         }
+  //       }
+  //     },
+  //     error: function () {
+  //
+  //       alert('Please try later.');
+  //     }
+  //
+  //   });
+  // });
 </script>
 
 </html>

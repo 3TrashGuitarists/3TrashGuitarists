@@ -23,19 +23,20 @@ func (c *RegisterController) Post() {
 
 	username :=c.Input().Get("username")
 	password :=c.Input().Get("password")
-	repassword :=c.Input().Get("repassword")
+	// repassword :=c.Input().Get("repassword")
 	email :=c.Input().Get("email")
 	address1 :=c.Input().Get("address1")
 
-	ReturnData["status"] =1 //1: sign up successfully, 0: wrong format,-1: fail to insert user data into sql
+	//ReturnData["status"] =1 //1: sign up successfully, 0: wrong format,-1: fail to insert user data into sql
+	ReturnData["status"] =1 //1: sign up successfully, 0: user or email exsits,-1: fail to insert user data into sql
 	ReturnData["message"] ="Thank you for joining us!"
 	ReturnData["check_username_dup"] =false
-	ReturnData["check_username_format"] =false
-	ReturnData["check_password"] =false
-	ReturnData["check_repassword"] =false
-	ReturnData["check_email"] =false
-	ReturnData["check_email_dup"] =false
-	ReturnData["check_address1"] =false
+	// ReturnData["check_username_format"] =false
+	// ReturnData["check_password"] =false
+	// ReturnData["check_repassword"] =false
+	// ReturnData["check_email"] =false
+	 ReturnData["check_email_dup"] =false
+	// ReturnData["check_address1"] =false
 
 
 	o := orm.NewOrm()
@@ -46,38 +47,38 @@ func (c *RegisterController) Post() {
 	if user_exist == true {
 		ReturnData["check_username_dup"] = true
 		ReturnData["status"] = 0
-		ReturnData["message"] = ""
+		//ReturnData["message"] = ""
 	}
-	if utils.VerifyNameFormat(username) == false {
-		ReturnData["check_username_format"] = true
-		ReturnData["status"] = 0
-		ReturnData["message"] = ""
-	}
-	if utils.VerifyPasswordFormat(password) == false {
-		ReturnData["check_password"] = true
-		ReturnData["status"] = 0
-		ReturnData["message"] = ""
-	}
-	if repassword != password {
-		ReturnData["check_repassword"] = true
-		ReturnData["status"] = 0
-		ReturnData["message"] = ""
-	}
-	if utils.VerifyEmailFormat(email) == false {
-		ReturnData["check_email"] = true
-		ReturnData["status"] = 0
-		ReturnData["message"] = ""
-	}
+	// if utils.VerifyNameFormat(username) == false {
+	// 	ReturnData["check_username_format"] = true
+	// 	ReturnData["status"] = 0
+	// 	ReturnData["message"] = ""
+	// }
+	// if utils.VerifyPasswordFormat(password) == false {
+	// 	ReturnData["check_password"] = true
+	// 	ReturnData["status"] = 0
+	// 	ReturnData["message"] = ""
+	// }
+	// if repassword != password {
+	// 	ReturnData["check_repassword"] = true
+	// 	ReturnData["status"] = 0
+	// 	ReturnData["message"] = ""
+	// }
+	// if utils.VerifyEmailFormat(email) == false {
+	// 	ReturnData["check_email_dup"] = true
+	// 	ReturnData["status"] = 0
+	// 	//ReturnData["message"] = ""
+	// }
 	if email_exist == true {
 		ReturnData["check_email_dup"] = true
 		ReturnData["status"] = 0
-		ReturnData["message"] = ""
+		//ReturnData["message"] = ""
 	}
-	if address1 == "" {
-		ReturnData["check_address1"] = true
-		ReturnData["status"] = 0
-		ReturnData["message"] = ""
-	}
+	// if address1 == "" {
+	// 	ReturnData["check_address1"] = true
+	// 	ReturnData["status"] = 0
+	// 	ReturnData["message"] = ""
+	// }
 
 	if ReturnData["status"] == 1 {
 		user_information := models.UserInformation3TG{}
