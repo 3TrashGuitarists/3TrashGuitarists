@@ -1,86 +1,36 @@
-{{/*<!DOCTYPE html>*/}}
-{{/*<html lang="en">*/}}
-{{/*<head>*/}}
-{{/*    <meta charset="UTF-8">*/}}
-{{/*    <title>Title</title>*/}}
-{{/*    {{range $key,$val := .guitars}}*/}}
-{{/*        <li>{{$key}}---{{$val}}</li>*/}}
-{{/*        <p>{{$val.BrandName}}</p>*/}}
-{{/*    {{end}}*/}}
-{{/*</head>*/}}
-{{/*<body>*/}}
-
-{{/*</body>*/}}
-{{/*</html>*/}}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <title>Welcome to 3TrashGuitarists</title>
-
     <link href="/static/vendor/icofont/icofont.min.css" rel="stylesheet">
     <link href="/static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="/static/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="/static/vendor/venobox/venobox.css" rel="stylesheet">
+    <link href="/static/vendor/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/static/vendor/flaticon.css" rel="stylesheet">
+    <link href="/static/vendor/meanmenu.min.css" rel="stylesheet">
+    <link href="/static/vendor/animate.min.css" rel="stylesheet">
+    <link href="/static/vendor/responsive.css" rel="stylesheet">
     <link href="/static/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="/static/css/style.css" rel="stylesheet">
-    <style type="text/css">
-        .display-guitar .guitar-box {
-            padding: 30px 30px;
-            transition: all ease-in-out 0.3s;
-            background: #fefefe;
-            box-shadow: 0px 5px 90px 0px rgba(110, 123, 131, 0.1);
-            border-radius: 18px;
-            border-bottom: 5px solid #fff;
-            margin-bottom: 20px;
-        }
+    <link href="/static/css/style1.css" rel="stylesheet">
 
-        .display-guitar .guitar-box .cover-display {
-            width: 270px;
-            height: 270px;
-            background: #FFFFFF;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            transition: ease-in-out 0.3s;
-            color: #fff;
-        }
-
-        .display-guitar .guitar-box .cover-display img {
-            font-size: 32px;
-        }
-
-        .display-guitar .guitar-box h4 {
-            font-weight: 700;
-            margin-bottom: 0px;
-            font-size: 24px;
-        }
-
-        .guitar-box p {
-            line-height: 24px;
-            font-size: 14px;
-            margin-bottom: 0;
-        }
-    </style>
-
+    <title>Order</title>
 
 </head>
+
 <body>
 <header id="header" class="fixed-top ">
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-xl-9 d-flex align-items-center justify-content-between">
-                <h1 class="logo"><a href="{{urlfor "HomeController.Get"}}">3TrashGuitarists</a></h1>
+                <h1 class="logo"><a href= "{{urlfor "HomeController.Get"}}" >3TrashGuitarists</a></h1>
                 <nav class="nav-menu d-none d-lg-block">
                     <ul>
                         <li><a href="{{urlfor "HomeController.Get"}}">Home</a></li>
-                        <li class="active drop-down"><a href="#brand">Brand</a>
+                        <li class="drop-down"><a href="/#brand">Brand</a>
                             <ul>
                                 <li><a href="{{urlfor "FenderController.Get"}}">Fender</a></li>
                                 <li><a href="{{urlfor "SuhrController.Get"}}">Suhr</a></li>
@@ -115,36 +65,55 @@
     </div>
 </header>
 
-<main id="main">
-    <section id="display-guitar" class="display-guitar">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-12 d-flex align-items-stretch">
-                </div>
-                <div class="col-lg-8 col-md-12 d-flex align-items-stretch">
-                    <div class="row">
-                        {{range $key,$val := .guitars}}
-                        <div class="col-lg-6 row-md-6 d-flex align-items-stretch">
-                            <div class="guitar-box">
-                                <div class="cover-display"><img src="{{$val.DisplayCover}}" alt="{{$val.ModelNumber}}" class="img-thumbnail"></div>
-                                <h4><a id="{{$val.Id}}" href="#" onclick='Redirect(this);'>{{$val.GuitarName}}</a></h4>
-                            </div>
-                        </div>
-                        {{end}}
-
-                        <div class="col-lg-6 col-md-6 d-flex align-items-stretch">
-                            <div class="guitar-box">
-                                <div class="cover-display"><img src="/static/Picture/Guitars/Fender/1/cover.jpg" alt="" class="img-thumbnail"></div>
-                                <h4><a href="{{urlfor ""}}">name</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="page-title-area">
+    <div class="container">
+        <div class="page-title-content">
+            <h2>Orders</h2>
         </div>
+    </div>
+</div>
 
-    </section>
-</main>
+<section class="cart-area ptb-100">
+    <div class="container">
+        <div class="cart-table table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">Order Number</th>
+                    <th scope="col">Product name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{range $key,$val := .orderInformation}}
+                <tr>
+                    <td>{{$val.OrderNumber}}</td>
+                    <td class="product-name">
+                        <a href="#" id="{{$val.GuitarID}}" onclick="Redirect(this)">{{$val.ProductName}}</a>
+                        <!--留一个跳转链接接口，需要后台传一个商品ID-->
+                    </td>
+                    <td class="product-price">
+                        <span class="unit-amount">${{$val.Price}}</span>
+                    </td>
+                    <td class="product-quantity">
+                        <span class="unit-amount">{{$val.Quantity}}</span>
+                    </td>
+                    <td class="product-subtotal">
+                        <span class="subtotal-amount">${{$val.Total}}</span>
+                    </td>
+                    <td class="product-name">
+                        <span>{{$val.Status}}</span>
+                    </td>
+                </tr>
+                {{end}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
 
 <footer id="footer">
     <div class="container">
@@ -155,18 +124,38 @@
             <a href="https://www.facebook.com/phoebe.bu" class="facebook"><i class="bx bxl-facebook"></i></a>
             <a href="https://www.instagram.com/WingoC23/" class="instagram"><i class="bx bxl-instagram"></i></a>
             <a href="https://github.com/SereneTo" class="github"><i class="bx bxl-github"></i></a>
-
         </div>
-
         <div class="credits"></div>
     </div>
 </footer>
 
+<script src="/static/vendor/jquery/jquery.min.js"></script>
+
+<script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script src="/static/vendor/tempJS/meanmenu.min.js"></script>
+
+<script src="/static/vendor/tempJS/owl.carousel.min.js"></script>
+
+<script src="/static/vendor/tempJS/wow.min.js"></script>
+
+<script src="/static/vendor/tempJS/form-validator.min.js"></script>
+
+<script src="/static/vendor/tempJS/contact-form-script.js"></script>
+
+<script src="/static/vendor/tempJS/ajaxchimp.min.js"></script>
+
+<script src="/static/vendor/tempJS/range-slider.min.js"></script>
+
+<script src="/static/vendor/tempJS/custom.js"></script>
+
 <script type="text/javascript">
-    function Redirect(th) {
-        var id = th.id;               //将获取的id值赋给新变量
-        window.location.href = "/shop_details/"+id;
-    }
+
+function Redirect(th) {
+    var id = th.id;               //将获取的id值赋给新变量
+    window.location.href = "/shop_details/" + id;
+}
+
 </script>
 
 </body>

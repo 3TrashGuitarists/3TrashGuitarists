@@ -26,5 +26,7 @@ func init() {
     //beego.Router("/GuitarDisplay", &controllers.GuitarDisplayController{})
     beego.Router("/guitar_display/:brand/:series", &controllers.GuitarDisplayController{})
     beego.Router("/shop_details/:id", &controllers.ShopDetailsController{})
+    beego.Router("/checkout/:id/:amount", &controllers.CheckoutController{})
+    beego.Router("/orders", &controllers.OrdersController{})
 
 }

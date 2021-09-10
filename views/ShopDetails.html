@@ -5,9 +5,6 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <title>Welcome to 3TrashGuitarists</title>
-
     <link href="/static/vendor/icofont/icofont.min.css" rel="stylesheet">
     <link href="/static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="/static/vendor/remixicon/remixicon.css" rel="stylesheet">
@@ -22,6 +19,7 @@
     <link href="/static/css/style1.css" rel="stylesheet">
 
     <title>Shop Detail</title>
+</head>
 <body>
 
 {{/*<div class="preloader">*/}}
@@ -58,7 +56,7 @@
                                 <ul>
                                     <li><a href="{{urlfor "MyInformationController.Get"}}">My Information</a></li>
                                     <li><a href="">Shopping Cart</a></li>
-                                    <li><a href="">Check Out</a></li>
+                                    <li><a href="{{urlfor "OrdersController.Get"}}">Order</a></li>
                                 </ul>
                             </li>
                         {{end}}
@@ -109,26 +107,26 @@
                     <div class="price">
                         <span class="new-price">${{.product.Price}}</span>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-                        ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-                        dolores et ea rebum. Stet clita kasd gubergren at vero eos et accusam amet, consetetur
-                        sadipscing elitr.</p>
+                    <p>{{.product.Description}}</p>
+                    <p class="category"><span>Now <b>{{.product.StockNumber}}</b> in stock</span></p>
                     <div class="shop-add-to-cart">
                         <h3>Quantities:</h3>
                         <div class="input-counter">
 <span class="minus-btn">
 <i class="bx bx-minus"></i>
 </span>
-                            <input type="text" value="1">
+                            <input type="text" value="1" id="amount">
                             <span class="plus-btn">
 <i class="bx bx-plus"></i>
 </span>
                         </div>
                     </div>
-                    <button type="submit" class="default-btn">
-                        Add to Cart
+
+                    <button type="button" class="default-btn" id="button-shopping-cart" onclick='Redirect();'>
+{{/*                        Add to Cart*/}}
+                        Checkout
                     </button>
-                    <p class="category">Category: <span>Chair</span></p>
+                    <p class="category">Brand: <span>{{.product.BrandName}}</span></p>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12">
@@ -137,13 +135,7 @@
                         <div class="col-lg-12 col-md-12">
                             <ul class="tabs">
                                 <li>
-                                    Description
-                                </li>
-                                <li>
-                                    Additional information
-                                </li>
-                                <li>
-                                    Reviews(2)
+                                    Details
                                 </li>
                             </ul>
                         </div>
@@ -152,18 +144,20 @@
                                 <div class="tabs_item">
                                     <div class="shop-details-tab-content">
                                         <h3 class="mb-2">Description</h3>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero blanditiis
-                                            quo fugiat magni accusamus exercitationem! Voluptate, deleniti quae. Libero
-                                            iusto minus, nulla excepturi quidem reprehenderit blanditiis eligendi
-                                            exercitationem nesciunt ad! Lorem ipsum dolor sit amet, consectetur
-                                            adipisicing elit. Sequi temporibus deserunt mollitia natus esse, sunt fuga
-                                            quos. Autem quasi error quisquam architecto fuga suscipit atque voluptatibus
-                                            nobis impedit nulla. Officia ercitationem.</p>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis repellat
-                                            tempora aliquid exercitationem. Vel, dicta quos. Velit magnam, eius unde
-                                            ullam, distinctio atque aperiam obcaecati ipsam id, inventore consectetur
-                                            laudantium repellat tempora aliquid exercitationem. Vel, dicta quos. Velit
-                                            magnam, eius unde ullam.</p>
+                                        <p>{{.product.Description}}</p>
+                                        <h3 class="mb-2">Specifications</h3>
+                                        <p><b>Guitar name: </b>{{.product.GuitarName}}</p>
+                                        <p><b>Model number: </b>{{.product.ModelNumber}}</p>
+                                        <p><b>Brand: </b>{{.product.BrandName}}</p>
+                                        <p><b>Series: </b>{{.product.SeriesName}}</p>
+                                        <p><b>Neck wood: </b>{{.product.NeckWood}}</p>
+                                        <p><b>Fret board wood: </b>{{.product.FingerBoardWood}}</p>
+                                        <p><b>Body wood: </b>{{.product.BodyWood}}</p>
+                                        <p><b>Frets number: </b>{{.product.FretsNumber}}</p>
+                                        <p><b>Top wood: </b>{{.product.TopWood}}</p>
+
+
+
                                     </div>
                                 </div>
                                 <div class="tabs_item">
@@ -964,7 +958,7 @@
 {{/*</div>*/}}
 
 
-<script src="/static/vendor/jquery.min.js"></script>
+<script src="/static/vendor/jquery/jquery.min.js"></script>
 
 <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -983,10 +977,25 @@
 <script src="/static/vendor/tempJS/range-slider.min.js"></script>
 
 <script src="/static/vendor/tempJS/custom.js"></script>
-</body>
-</html></title>
-</head>
-<body>
+<script type="text/javascript">
+    function Redirect(){
+        var amount = $("#amount").val();
+        console.log(amount);
+        if(amount>{{.product.StockNumber}}){
+            alert("Our quantity is not sufficient.\n","There are only",{{.product.StockNumber}},"in stock but you want",amount,".");
+        }else{
+            if({{.IsLogin}}){
+                var id = {{.product.Id}};               //将获取的id值赋给新变量
+                console.log(id,amount);
+                window.location.href = "/checkout/"+id+"/"+amount;
+            }else{
+                alert("Please login first.");
+            }
+        }
+    }
 
+
+</script>
 </body>
 </html>
+
