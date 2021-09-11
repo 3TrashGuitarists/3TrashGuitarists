@@ -1,18 +1,3 @@
-{{/*<!DOCTYPE html>*/}}
-{{/*<html lang="en">*/}}
-{{/*<head>*/}}
-{{/*    <meta charset="UTF-8">*/}}
-{{/*    <title>Title</title>*/}}
-{{/*    {{range $key,$val := .guitars}}*/}}
-{{/*        <li>{{$key}}---{{$val}}</li>*/}}
-{{/*        <p>{{$val.BrandName}}</p>*/}}
-{{/*    {{end}}*/}}
-{{/*</head>*/}}
-{{/*<body>*/}}
-
-{{/*</body>*/}}
-{{/*</html>*/}}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +13,7 @@
     <link href="/static/vendor/venobox/venobox.css" rel="stylesheet">
     <link href="/static/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/style1.css" rel="stylesheet">
     <style type="text/css">
         .display-guitar .guitar-box {
             padding: 30px 30px;
@@ -120,21 +106,149 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-12 d-flex align-items-stretch">
+                    <div class="product-listing-sidebar">
+                            <div class="product-listing-widget">
+                                <ul class="accordion-widget">
+                                    <li class="accordion-item">
+                                        <a class="accordion-widget-title active">
+                                            <h3>Brand</h3>
+                                        </a>
+                                        <ul class="accordion-widget-content show">
+                                            <li>
+                                                <input type="radio" id="all" value="all" name="brand" checked="checked">
+                                                <label class="single-check">All</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="fender" value="fender" name="brand">
+                                                <label class="single-check">Fender</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="suhr" value="suhr" name="brand">
+                                                <label class="single-check">Suhr</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="ibanez" value="ibanez" name="brand">
+                                                <label class="single-check">Ibanez</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="charvel" value="charvel" name="brand">
+                                                <label class="single-check">Charvel</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="esp" value="esp" name="brand">
+                                                <label class="single-check">ESP</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="tom" value="tom" name="brand">
+                                                <label class="single-check">Tom Anderson</label>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="product-listing-widget">
+                                <ul class="accordion-widget">
+                                    <li class="accordion-item">
+                                        <a class="accordion-widget-title active">
+                                            <h3>Neck</h3>
+                                        </a>
+                                        <ul class="accordion-widget-content show">
+                                            <li>
+                                                <input type="radio" id="all" value="all" name="neckwood" checked="checked">
+                                                <label class="single-check">All</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="neckwood1" value="neckwood1" name="neckwood">
+                                                <label class="single-check">neckwood1</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="neckwood2" value="neckwood2" name="neckwood">
+                                                <label class="single-check">neckwood2</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="neckwood3" value="neckwood3" name="neckwood">
+                                                <label class="single-check">neckwood3</label>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="product-listing-widget">
+                                <ul class="accordion-widget">
+                                    <li class="accordion-item">
+                                        <a class="accordion-widget-title active">
+                                            <h3>Fretboard</h3>
+                                        </a>
+                                        <ul class="accordion-widget-content show">
+                                            <li>
+                                                <input type="radio" id="all" value="all" name="fretboardwood" checked="checked">
+                                                <label class="single-check">All</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="fretboardwood1" value="fretboardwood1" name="fretboardwood">
+                                                <label class="single-check">fretboardwood1</label>
+                                            </li>
+                                            <li>
+                                                 <input type="radio" id="fretboardwood2" value="fretboardwood2" name="fretboardwood">
+                                                 <label class="single-check">fretboardwood2</label>
+                                            </li>
+                                            <li>
+                                                 <input type="radio" id="fretboardwood3" value="fretboardwood3" name="fretboardwood">
+                                                 <label class="single-check">fretboardwood3</label>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="product-listing-widget">
+                                <ul class="accordion-widget">
+                                    <li class="accordion-item">
+                                        <a class="accordion-widget-title active">
+                                            <h3>Body</h3>
+                                        </a>
+                                        <ul class="accordion-widget-content show">
+                                            <li>
+                                                <input type="radio" id="all" value="all" name="bodywood" checked="checked">
+                                                <label class="single-check">All</label>
+                                            </li>
+                                            <li>
+                                                 <input type="radio" id="bodywood1" value="bodywood2" name="bodywood">
+                                                 <label class="single-check">bodywood1</label>
+                                            </li>
+                                            <li>
+                                                 <input type="radio" id="bodywood2" value="bodywood2" name="bodywood">
+                                                 <label class="single-check">bodywood2</label>
+                                            </li>
+                                            <li>
+                                                 <input type="radio" id="bodywood3" value="bodywood3" name="bodywood">
+                                                 <label class="single-check">bodywood3</label>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="#" class="default-btn two" id="filter"><span>Filter</span></a>
+                        </div>
                 </div>
+
                 <div class="col-lg-8 col-md-12 d-flex align-items-stretch">
                     <div class="row">
                         {{range $key,$val := .guitars}}
-                        <div class="col-lg-6 row-md-6 d-flex align-items-stretch">
-                            <div class="guitar-box">
-                                <div class="cover-display"><img src="{{$val.DisplayCover}}" alt="{{$val.ModelNumber}}" class="img-thumbnail"></div>
-                                <h4><a id="{{$val.Id}}" href="#" onclick='Redirect(this);'>{{$val.GuitarName}}</a></h4>
+                            <div class="col-lg-6 row-md-6 d-flex align-items-stretch">
+                                <div class="guitar-box">
+                                    <div class="cover-display"><img src="{{$val.DisplayCover}}"
+                                                                    alt="{{$val.ModelNumber}}" class="img-thumbnail">
+                                    </div>
+                                    <h4><a id="{{$val.Id}}" href="#" onclick='Redirect(this);'>{{$val.GuitarName}}</a>
+                                    </h4>
+                                </div>
                             </div>
-                        </div>
                         {{end}}
 
                         <div class="col-lg-6 col-md-6 d-flex align-items-stretch">
                             <div class="guitar-box">
-                                <div class="cover-display"><img src="/static/Picture/Guitars/Fender/1/cover.jpg" alt="" class="img-thumbnail"></div>
+                                <div class="cover-display"><img src="/static/Picture/Guitars/Fender/1/cover.jpg" alt=""
+                                                                class="img-thumbnail"></div>
                                 <h4><a href="{{urlfor ""}}">name</a></h4>
                             </div>
                         </div>
@@ -162,11 +276,53 @@
     </div>
 </footer>
 
+<script src="/static/vendor/jquery/jquery.min.js"></script>
+
+<script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script src="/static/vendor/tempJS/meanmenu.min.js"></script>
+
+<script src="/static/vendor/tempJS/owl.carousel.min.js"></script>
+
+<script src="/static/vendor/tempJS/wow.min.js"></script>
+
+<script src="/static/vendor/tempJS/form-validator.min.js"></script>
+
+<script src="/static/vendor/tempJS/contact-form-script.js"></script>
+
+<script src="/static/vendor/tempJS/ajaxchimp.min.js"></script>
+
+<script src="/static/vendor/tempJS/range-slider.min.js"></script>
+
+<script src="/static/vendor/tempJS/custom.js"></script>
+
 <script type="text/javascript">
+    window.onload = getradio;
+
+    function getradio(){
+        var url = document.location.toString();
+        var arr = url.split("/");
+        console.log(arr[4],arr[5],arr[6],arr[7],arr[8]);
+        $("#"+arr[4]+"").attr("checked","checked");
+        $("#"+arr[5]+"").attr("checked","checked");
+        $("#"+arr[6]+"").attr("checked","checked");
+        $("#"+arr[7]+"").attr("checked","checked");
+        $("#"+arr[8]+"").attr("checked","checked");
+    }
+
     function Redirect(th) {
         var id = th.id;               //将获取的id值赋给新变量
-        window.location.href = "/shop_details/"+id;
+        window.location.href = "/shop_details/" + id;
     }
+
+     $('#filter').click(function() {
+        var brand = $("input[name='brand']:checked").val();
+        var neckwood = $("input[name='neckwood']:checked").val();
+        var fretboardwood = $("input[name='fretboardwood']:checked").val();
+        var bodywood = $("input[name='bodywood']:checked").val();
+        console.log(brand,neckwood,fretboardwood,bodywood);
+        location.href = "/guitar_display/"+brand+"/all/"+neckwood+"/"+fretboardwood+"/"+bodywood;
+     });
 </script>
 
 </body>
